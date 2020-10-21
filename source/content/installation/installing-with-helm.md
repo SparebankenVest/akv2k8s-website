@@ -5,7 +5,7 @@ description: "How to install Azure Key Vault to Kubernetes with Helm"
 
 > Make sure to check the [requirements](requirements) before installing. 
 
-## Installing the AzureKeyVaultSecret CRD
+## About Custom Resource Difinitions
 
 Before installing the Chart, the Custom Resource Definition for AzureKeyVaultSecret must be installed by pointing to the correct version:
 
