@@ -21,6 +21,7 @@ module.exports = {
         root: __dirname,
         baseUrl: 'https://akv2k8s.io',
         logoLink: 'https://akv2k8s.io/',
+        baseDir: '',
         contentDir: 'source/content',
         siteName: '',
         pageTitle: 'akv2k8s docs',
