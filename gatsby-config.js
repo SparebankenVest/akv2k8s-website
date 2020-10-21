@@ -23,6 +23,7 @@ module.exports = {
         logoLink: 'https://akv2k8s.io/',
         contentDir: 'source/content',
         siteName: '',
+        baseDir: '',
         pageTitle: 'akv2k8s docs',
         subtitle: '',
         description: 'How to get Azure Key Vault objects into Kubernetes',
