@@ -15,41 +15,11 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-git`,
-      options: {
-        name: `default`,
-        remote: `https://github.com/SparebankenVest/public-helm-charts.git`,
-        // Optionally supply a branch. If none supplied, you'll get the default branch.
-        // branch: `develop`,
-        // Tailor which files get imported eg. import the docs folder from a codebase.
-        patterns: [
-          'stable/azure-key-vault-controller/README.md', 
-          'stable/azure-key-vault-env-injector/README.md', 
-          ]
-      }
-    },
-    // {
-    //   resolve: "gatsby-source-graphql",
-    //   options: {
-    //     // Arbitrary name for the remote schema Query type
-    //     typeName: "GitHub",
-    //     // Field under which the remote schema will be accessible. You'll use this in your Gatsby query
-    //     fieldName: "github",
-    //     // Url to query from
-    //     url: "https://api.github.com/graphql",
-    //     headers: {
-    //       // Learn about environment variables: https://gatsby.dev/env-vars
-    //       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-    //     },
-    //   },
-    // },
-    {
       resolve: 'gatsby-theme-apollo-docs',
       options: {
         ...themeOptions,
         root: __dirname,
         baseUrl: 'https://akv2k8s.io',
-        baseDir: 'docs',
         logoLink: 'https://akv2k8s.io/',
         contentDir: 'source/content',
         siteName: '',
