@@ -53,7 +53,7 @@ module.exports = {
         pageTitle: 'akv2k8s docs',
         subtitle: '',
         description: 'How to get Azure Key Vault objects into Kubernetes',
-        githubRepo: 'sparebankenvest/azure-key-vault-to-kubernetes',
+        githubRepo: 'sparebankenvest/akv2k8s-website',
         segmentApiKey: null,
         algoliaApiKey: '3222f31991b019f454d81f025f0f26d3',
         algoliaIndexName: 'azure-key-vault-to-kubernetes',
@@ -62,7 +62,7 @@ module.exports = {
         twitterHandle: '',
         defaultVersion: '1.1',
         versions: {
-          '1.0': 'doc-version-1.0.2',
+          '1.0': 'v1.0.2',
         },
         sidebarCategories: {
           null: ['index', 'why-akv2k8s', 'quick-start', 'how-it-works', 'faq'],
