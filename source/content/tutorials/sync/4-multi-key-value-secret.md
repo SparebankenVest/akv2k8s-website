@@ -10,7 +10,9 @@ is that Secrets in Azure Key Vault has no concept of keys or values. Because of 
 have introduced a new type called `multi-key-value-secret`
 (see [AzureKeyVaultSecret Object Types](/reference/azure-key-vault-secret/#vault-object-types)).
 
-In order to use `multi-key-value-secret`, just format a Azure Key Vault Secret using `yaml` or `json`:
+## Example secret 
+
+`Prerequisite` You need to have a secret in your Azure Key Vault with a json / yaml as value. Example values:
 
 ```yaml
 key1: value1
@@ -26,4 +28,34 @@ or
   "key2": "value2",
   "key3": "value3"
 }
+```
+To sync your Azure Key Vault with the cluster create a AzureKeyVaultSecret with output:
+
+```yaml
+apiVersion: spv.no/v1
+kind: AzureKeyVaultSecret
+metadata:
+  name: db-config
+spec:
+  vault:
+    name: your-key-vault
+    object:
+      contentType: application/x-json # make sure this matches the content of the secret, can be either 'application/x-json' or 'application/x-yaml'
+      name: db-config
+      type: type: multi-key-value-secret
+  output:
+    secret:
+      name: db-config
+```
+The resulting secret in the cluster will look like this: 
+```yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: db-config
+data:
+  key1: dmFsdWUx
+  key2: dmFsdWUy
+  key3: dmFsdWUz
 ```
