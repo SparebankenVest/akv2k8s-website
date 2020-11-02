@@ -32,7 +32,7 @@ az keyvault secret set --vault-name akv2k8s-test --name my-secret --value "My su
 Authorize Access to Secrets:
 
 ```bash
-az keyvault set-policy --n akv2k8s-test --spn <spn for akv2k8s> --secret-permissions get 
+az keyvault set-policy -n akv2k8s-test --spn <spn for akv2k8s> --secret-permissions get 
 ```
 
 ### Add certificate - required for certificate-tutorials
@@ -44,7 +44,7 @@ az keyvault certificate create --vault-name akv2k8s-test --name my-certificate -
 Authorize Access to Certificates:
 
 ```bash
-az keyvault set-policy --n akv2k8s-test --spn <spn for akv2k8s> --certificate-permissions get 
+az keyvault set-policy -n akv2k8s-test --spn <spn for akv2k8s> --certificate-permissions get 
 ```
 
 ### Add signing key - required for signing-key-tutorials
@@ -56,7 +56,7 @@ az keyvault key create --vault-name akv2k8s-test --name my-key
 Authorize Access to Keys:
 
 ```bash
-az keyvault set-policy --n akv2k8s-test --spn <spn for akv2k8s> --key-permissions get 
+az keyvault set-policy -n akv2k8s-test --spn <spn for akv2k8s> --key-permissions get 
 ```
 
 ## Kubernetes Resources
