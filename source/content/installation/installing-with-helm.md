@@ -79,10 +79,14 @@ Install both Controller and Env-Injector:
 ```bash
 helm upgrade -i akv2k8s spv-charts/akv2k8s \
    --namespace akv2k8s \
-   --set keyVault.customAuth.enabled=true \
-   --set env.AZURE_TENANT_ID=<tenant-id> \
-   --set env.AZURE_CLIENT_ID=<client-id> \
-   --set env.AZURE_CLIENT_SECRET=<client-secret>
+   --set controller.keyVault.customAuth.enabled=true \
+   --set controller.env.AZURE_TENANT_ID=<tenant-id> \
+   --set controller.env.AZURE_CLIENT_ID=<client-id> \
+   --set controller.env.AZURE_CLIENT_SECRET=<client-secret>
+   --set env_injector.keyVault.customAuth.enabled=true \
+   --set env_injector.env.AZURE_TENANT_ID=<tenant-id> \
+   --set env_injector.env.AZURE_CLIENT_ID=<client-id> \
+   --set env_injector.env.AZURE_CLIENT_SECRET=<client-secret>   
 ```
 
 ### Legacy Charts
