@@ -36,7 +36,7 @@ kubectl create ns akv2k8s
 Add Helm repository:
 
 ```bash
-helm repo add spv-charts http://charts.spvapi.no
+helm repo add spv-charts https://charts.spvapi.no
 helm repo update
 ```
 
