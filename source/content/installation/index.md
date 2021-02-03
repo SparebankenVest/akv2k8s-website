@@ -11,4 +11,4 @@ It's recommended to use Helm charts for installation.
 
 [Installing with Helm charts](installing-with-helm)
 
-[Installing witouh Helm charts](installing-without-helm)
+[Installing without Helm charts](installing-without-helm)
