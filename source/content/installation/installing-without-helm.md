@@ -3,13 +3,26 @@ title: "Installation without Helm"
 description: "How to setup Azure Key Vault to Kubernetes"
 ---
 
-Make sure to check the [requirements](requirements) before installing. 
+Make sure to check the [requirements](requirements) before installing.
 
 If Helm is not an option, use Helm on a local computer to generate the Kubernetes templates like below.
 
 ## Using Helm 3
 
-Download the Git repository:
+Add Helm repository:
+
+```bash
+helm repo add spv-charts http://charts.spvapi.no
+helm repo update
+```
+
+Render chart templates locally:
+
+```bash
+helm template akv2k8s spv-charts/akv2k8s <options>
+```
+
+Or by download the Git repository:
 
 ```bash
 git clone git@github.com:SparebankenVest/public-helm-charts.git
@@ -19,8 +32,7 @@ Render chart templates locally:
 
 ```bash
 cd public-helm-charts
-helm template azure-key-vault-controller ./stable/azure-key-vault-controller/ <options>
-helm template azure-key-vault-env-injector ./stable/azure-key-vault-env-injector/ <options>
+helm template akv2k8s ./stable/akv2k8s/ <options>
 ```
 
 ## Options and more

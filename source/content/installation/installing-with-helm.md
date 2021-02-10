@@ -3,7 +3,7 @@ title: "Installation with Helm"
 description: "How to install Azure Key Vault to Kubernetes with Helm"
 ---
 
-> Make sure to check the [requirements](requirements) before installing. 
+> Make sure to check the [requirements](requirements) before installing.
 
 ## About Custom Resource Difinitions
 
@@ -27,7 +27,7 @@ A dedicated namespace needs to be created for akv2k8s:
 kubectl create ns akv2k8s
 ```
 
-...or provide `--create-namespace` with Helm.
+...or provide `--create-namespace` with Helm 3.
 
 ## Installation
 
@@ -44,22 +44,22 @@ Install both Controller and Env-Injector:
 
 ```bash
 helm upgrade --install akv2k8s spv-charts/akv2k8s \
-  --namespace akv2k8s 
+  --namespace akv2k8s
 ```
 
 The Controller is required as the Env-Injector depends on it, but you can omit the Env-Injector:
 
 ```
 helm upgrade --install akv2k8s spv-charts/akv2k8s \
-  --env_injector.enabled=false \ 
-  --namespace akv2k8s 
+  --namespace akv2k8s \
+  --set env_injector.enabled=false
 ```
 
 For detailed options, see the [Helm chart for akv2k8s](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/akv2k8s):
 
-### Installing with Helm outside Azure AKS 
+### Installing with Helm outside Azure AKS
 
-When running **inside** Azure AKS, Akv2k8s will use the AKS cluster credentials by default to authenticate with Azure Key Vault. **Outside** Azure AKS - credentials must be provided by setting `keyVault.customAuth=true` and provide credentials as documented under [Authentication](../security/authentication).
+When running **inside** Azure AKS, Akv2k8s will use the AKS cluster credentials by default to authenticate with Azure Key Vault. **Outside** Azure AKS - credentials must be provided by setting `env_injector.keyVault.customAuth=true` and provide credentials as documented under [Authentication](../security/authentication).
 
 Create `akv2k8s` namespace:
 
@@ -76,13 +76,13 @@ helm repo update
 
 Install both Controller and Env-Injector:
 
-```bash
-helm upgrade -i akv2k8s spv-charts/akv2k8s \
-   --namespace akv2k8s \
-   --set keyVault.customAuth.enabled=true \
-   --set env.AZURE_TENANT_ID=<tenant-id> \
-   --set env.AZURE_CLIENT_ID=<client-id> \
-   --set env.AZURE_CLIENT_SECRET=<client-secret>
+```
+helm upgrade --install akv2k8s spv-charts/akv2k8s \
+  --namespace akv2k8s \
+  --set env_injector.keyVault.customAuth.enabled=true \
+  --set global.env.AZURE_TENANT_ID=<tenant-id> \
+  --set global.env.AZURE_CLIENT_ID=<client-id> \
+  --set global.env.AZURE_CLIENT_SECRET=<client-secret>
 ```
 
 ### Legacy Charts
