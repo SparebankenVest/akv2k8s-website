@@ -79,6 +79,7 @@ Install both Controller and Env-Injector:
 ```
 helm upgrade --install akv2k8s spv-charts/akv2k8s \
   --namespace akv2k8s \
+  --set controller.keyVault.customAuth.enabled=true \
   --set env_injector.keyVault.customAuth.enabled=true \
   --set global.env.AZURE_TENANT_ID=<tenant-id> \
   --set global.env.AZURE_CLIENT_ID=<client-id> \
