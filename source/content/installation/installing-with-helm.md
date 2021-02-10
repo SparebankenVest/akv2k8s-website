@@ -5,7 +5,7 @@ description: "How to install Azure Key Vault to Kubernetes with Helm"
 
 > Make sure to check the [requirements](requirements) before installing.
 
-## About Custom Resource Difinitions
+## About Custom Resource Definitions
 
 On first install, the Helm Chart will add the `AzureKeyVaultSecret` CRD to Kubernetes if it does not already exists. On later upgrades or if it already exists, any changed to the CRD will not be updated by the Helm Chart. This is by design: https://helm.sh/docs/chart_best_practices/custom_resource_definitions/#method-1-let-helm-do-it-for-you
 
@@ -36,7 +36,7 @@ kubectl create ns akv2k8s
 Add Helm repository:
 
 ```bash
-helm repo add spv-charts http://charts.spvapi.no
+helm repo add spv-charts https://charts.spvapi.no
 helm repo update
 ```
 
@@ -70,7 +70,7 @@ kubectl create ns akv2k8s
 Add Helm repository:
 
 ```bash
-helm repo add spv-charts http://charts.spvapi.no
+helm repo add spv-charts https://charts.spvapi.no
 helm repo update
 ```
 
