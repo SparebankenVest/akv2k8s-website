@@ -42,7 +42,7 @@ spec:
     object:
       contentType: application/x-json # make sure this matches the content of the secret, can be either 'application/x-json' or 'application/x-yaml'
       name: db-config
-      type: type: multi-key-value-secret
+      type: multi-key-value-secret
   output:
     secret:
       name: db-config
