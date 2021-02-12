@@ -21,12 +21,18 @@ Azure Key Vault:
 az keyvault create -n akv2k8s-test -g akv2k8s-test
 ```
 
-### Add secret - required for secret-tutorials
+### Add secrets - required for secret-tutorials
 
 Add Secret to Azure Key Vault:
 
 ```bash
 az keyvault secret set --vault-name akv2k8s-test --name my-secret --value "My super secret"
+```
+
+...and another:
+
+```bash
+az keyvault secret set --vault-name akv2k8s-test --name my-other-secret --value "My other super secret"
 ```
 
 Authorize Access to Secrets:
