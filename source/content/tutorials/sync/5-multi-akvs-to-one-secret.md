@@ -11,7 +11,7 @@ We start by creating two definitions of the Azure Key Vault secrets
 we want to sync:
 
 ```yaml:title=multi-akvs-secret-sync.yaml
-apiVersion: spv.no/v1
+apiVersion: spv.no/v2beta1
 kind: AzureKeyVaultSecret
 metadata:
   name: secret-sync-1
@@ -27,7 +27,7 @@ spec:
       name: my-secrets-from-akv # kubernetes secret name
       dataKey: secret-value-1 # key to store object value in kubernetes secret
 ---
-apiVersion: spv.no/v1
+apiVersion: spv.no/v2beta1
 kind: AzureKeyVaultSecret
 metadata:
   name: secret-sync-2

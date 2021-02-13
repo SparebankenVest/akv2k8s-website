@@ -22,14 +22,14 @@ The `AzureKeyVaultSecret` Custom Resource Definition (CRD) contains metadata use
 * The Kubernetes namespace where the Azure Key Vault secret should be available
 * The name of the Azure Key Vault
 * The name, type and version (optional) of the Azure Key Vault object
-* Optionally a Kubernetes `Secret` name and data-key to sync to 
+* Optionally a Kubernetes `Secret` or `ConfigMap` and data-key to sync to 
 
 An example `AzureKeyVaultSecret` looks like this:
 
 ```yaml
 # secret-sync.yaml
 
-apiVersion: spv.no/v1
+apiVersion: spv.no/v2beta1
 kind: AzureKeyVaultSecret
 metadata:
   name: secret-sync 
@@ -72,7 +72,8 @@ Below are the steps that gets executed for a Pod using env-injection.
 The Env Injector webhook gets triggered just before every Pod gets created and inspects the Pod definition for environment variables containing `@azurekeyvault` (see example below). If it does not find any, the Pod starts as normal. If it does, it mutates (changes) the Pod with:
 
 * A init-container (image: spvest/azure-keyvault-env) with a in-memory volume at `/azure-keyvault/`
-* Changes the executable for the Pod container (more on that later)
+* Akv2k8s own executable instead of the original executable in the Pod (more on that later)
+* Multiple environment variables with akv2k8s specific information 
 
 Example where environment variable has value containing `@azurekeyvault`:
 
@@ -103,9 +104,9 @@ The volume `/azure-keyvault/` in the Pod is shared between its containers (the i
 
 When the original container starts, it will execute the `azure-keyvault-env` command, which will:
 
-1. Get a OAuth token from the Env-Injector auth service for authenticating with Azure Key Vault (default - other options exists - see [Authentication](security/authentication) for details)
+1. Get Azure Key Vault credentials from the Env-Injector auth service or from local environment (depending how auth is configured - see [Authentication](security/authentication) for details)
 2. Connect to Azure Key Vault, using credentials from previous step
-3. Download any Azure Key Vault objects, identified by the environment placeholders
+3. Download all Azure Key Vault objects, identified by the environment placeholders
 4. Execute the original command and params, pass on the updated environment variables with real secret values
 
 </ExpansionPanelListItem>

@@ -6,7 +6,7 @@ description: "Reference of AzureKeyVaultSecret custom resource definition"
 The `AzureKeyVaultSecret` is defined using this schema:
 
 ```yaml
-apiVersion: spv.no/v1
+apiVersion: spv.no/v2beta1 # custom resource definition version
 kind: AzureKeyVaultSecret
 metadata:
   name: < name for azure key vault secret>
@@ -29,9 +29,13 @@ spec:
       type: <optional - kubernetes secret type - defaults to opaque>
       dataKey: <required when type is opaque - name of the kubernetes secret data key to assign value to - ignored for all other types>
       chainOrder: <optional - used when server certificate is at the end of the chain - set to ensureserverfirst>
+    configMap:
+      name: <name of the kubernetes secret to create>
+      dataKey: <name of the kubernetes config map data key to assign value to>
+
 ```
 
-> **Note - the `output` is only used by the Controller to create the Azure Key Vault secret as a Kubernetes native Secret - it is ignored and not needed by the Env Injector.**
+> **Note - the `output` is only used by the Controller to create the Azure Key Vault secret as a Kubernetes native Secret or ConfigMap - it is ignored and not needed by the Env Injector.**
 
 ## Kubernetes Secret Types
 
@@ -100,7 +104,7 @@ When exporting a PFX certificate from Key Vault the server certificate sometimes
 Three common transformers exists - trim, base64encode and base64decode. Below is an example where a secret extracted from Azure Key Vault, which is base64 encoded, gets decoded by the transformer before added to a Kubernetes Secret.
 
 ```
-apiVersion: spv.no/v1
+apiVersion: spv.no/v2beta1
 kind: AzureKeyVaultSecret
 metadata:
   name: base64decoded-binary-file

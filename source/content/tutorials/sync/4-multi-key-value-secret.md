@@ -32,7 +32,7 @@ or
 To sync your Azure Key Vault with the cluster create a AzureKeyVaultSecret with output:
 
 ```yaml
-apiVersion: spv.no/v1
+apiVersion: spv.no/v2beta1
 kind: AzureKeyVaultSecret
 metadata:
   name: db-config

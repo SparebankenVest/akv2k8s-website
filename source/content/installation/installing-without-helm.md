@@ -7,8 +7,6 @@ Make sure to check the [requirements](requirements) before installing.
 
 If Helm is not an option, use Helm on a local computer to generate the Kubernetes templates like below.
 
-## Using Helm 3
-
 Add Helm repository:
 
 ```bash

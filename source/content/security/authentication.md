@@ -23,7 +23,7 @@ Two solutions exists:
 
 ## AKV Authentication with the Controller
 
-The Controller will need AKV credentials to get Secrets from AKV and store them as Kubernetes Secrets. **If the default option (AKS credentials) works for you, use that.** If not, use custom authentication by passing inn the value `keyVault.customAuth.enabled=true` to the Controller and pick one of the [Authentication options](#custom-akv-authentication-options) described below.
+The Controller will need AKV credentials to get Secrets from AKV and store them as Kubernetes Secrets or Config Maps. **If the default option (AKS credentials) works for you, use that.** If not, use custom authentication by passing inn the value `controller.keyVaultAuth=environment` to the Controller and pick one of the [Authentication options](#custom-akv-authentication-options) described below.
 
 Fore more details, see the [Controller Helm Chart](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/azure-key-vault-controller/README.md).
 
@@ -49,7 +49,7 @@ This will prevent akv2k8s to do MSI authentication requests directly with the MS
 
 >Identity assignment on VM takes 10-20s and 40-60s in case of VMSS.
 
-Fortunately aad-pod-identity as the concept of application exceptions which will allow akv2k8s to handle MSI authentication requests directly:
+Fortunately aad-pod-identity has the concept of application exceptions which will allow akv2k8s to handle MSI authentication requests directly:
 
 ```
 apiVersion: "aadpodidentity.k8s.io/v1"
@@ -74,15 +74,8 @@ First decide on either option 1 or 2 from the [authentication decision tree](#ak
 When installing the env-injector using the official [`akv2k8s`](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/akv2k8s) Helm chart, set the following values:
 
 ```
---set env_injector.keyVault.customAuth.enabled=true
---set env_injector.webhook.podLabels.aadpodidbinding=[your aad identity]
-```
-
-...or using the deprecated [azure-key-vault-env-injector](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/azure-key-vault-env-injector)
-
-```
---set keyVault.customAuth.enabled=true
---set webhook.podLabels.aadpodidbinding=[your aad identity]
+--set env_injector.keyVaultAuth=environment
+--set env_injector.podLabels.aadpodidbinding=[your aad identity]
 ```
 
 #### Option 2 - pass aad-pod-identity to every application pod

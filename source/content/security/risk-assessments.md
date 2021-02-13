@@ -3,14 +3,13 @@ title: "Risk Assessments"
 description: "Learn about the risk assessments the akv2k8s project has done"
 ---
 
-To help assess if the akv2k8s project is within the ... here is a list of some of the perticulars and the risk assessments we did around those topics.
+To help assess if the akv2k8s project is within the risk thresholds here is a list of some of the perticulars and the risk assessments we did around those topics.
 
 When developing the akv2k8s project there are many
 
 ## How to handle credentials
 
 Credentials to Azure Key Vault is needed by both the controller that syncs AKV secrets into Kubernetes secrets, and the env-injector that inject AKV secrets into container applications.
-
 
 ### The Controller
 
