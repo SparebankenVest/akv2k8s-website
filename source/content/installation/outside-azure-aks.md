@@ -1,6 +1,6 @@
 ---
-title: "Installation with Helm"
-description: "How to install Azure Key Vault to Kubernetes with Helm"
+title: "Installing outside Azure AKS"
+description: "Learn how to install Azure Key Vault to Kubernetes outside Azure AKS"
 ---
 
 > Make sure to check the [requirements](requirements) before installing.
@@ -19,7 +19,9 @@ In versions <=1.2 of Akv2k8s only the `AzureKeyVaultSecret` CRD is needed.
 
 >Note: If you delete the `AzureKeyVaultSecret` CRD from Kubernetes, all resources of type `AzureKeyVaultSecret` created in cluster will be removed. This is by design: https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#delete-a-customresourcedefinition
 
-## Create a dedicated namespace
+## Installation
+
+### Create a dedicated namespace
 
 A dedicated namespace needs to be created for akv2k8s:
 
@@ -29,40 +31,10 @@ kubectl create ns akv2k8s
 
 ...or provide `--create-namespace` with Helm 3.
 
-## Installation
-
-### Installing with Helm on Azure AKS
-
-Create `akv2k8s` namespace:
-
-```bash
-kubectl create ns akv2k8s
-```
-
-Add Helm repository:
-
-```bash
-helm repo add spv-charts https://charts.spvapi.no
-helm repo update
-```
-
-```bash
-helm upgrade --install akv2k8s spv-charts/akv2k8s \
-  --namespace akv2k8s
-```
-
-For detailed options, see the [Helm chart for akv2k8s](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/akv2k8s):
-
 ### Installing with Helm outside Azure AKS
 
 When running **inside** Azure AKS, Akv2k8s will use the AKS cluster credentials by default to authenticate with Azure Key Vault. **Outside** Azure AKS - credentials must be provided by setting `env_injector.keyVaultAuth=environment` and provide credentials as documented under [Authentication](../security/authentication).
 
-Create `akv2k8s` namespace:
-
-```bash
-kubectl create ns akv2k8s
-```
-
 Add Helm repository:
 
 ```bash
@@ -70,13 +42,12 @@ helm repo add spv-charts https://charts.spvapi.no
 helm repo update
 ```
 
-Install Azure Key Vault to Kubernetes, using client-id/secret as Azure Key Vault credentials:
+Example of installing akv2k8s using client-id/secret as Azure Key Vault credentials:
 
 ```
 helm upgrade --install akv2k8s spv-charts/akv2k8s \
   --namespace akv2k8s \
-  --set controller.keyVaultAuth=environment \
-  --set env_injector.keyVaultAuth=environment \
+  --set global.keyVaultAuth=environment \
   --set global.env.AZURE_TENANT_ID=<tenant-id> \
   --set global.env.AZURE_CLIENT_ID=<client-id> \
   --set global.env.AZURE_CLIENT_SECRET=<client-secret>
