@@ -44,8 +44,12 @@ module.exports = {
           'Installation': [
             'installation/index',
             'installation/requirements',
-            'installation/installing-with-helm',
-            'installation/installing-without-helm',
+            'installation/on-azure-aks',
+            'installation/outside-azure-aks',
+            'installation/without-helm',
+            'installation/upgrade',
+            'installation/crd',
+            'installation/with-aad-pod-identity',
           ],
           Tutorials: [
             'tutorials/index',
@@ -66,6 +70,10 @@ module.exports = {
             'security/authentication',
             'security/authorization',
             'security/enable-env-injection',
+          ],
+          Monitoring: [
+            'monitoring/logs',
+            'monitoring/metrics',
           ],
           Troubleshooting: [
             'troubleshooting/controller-log',
