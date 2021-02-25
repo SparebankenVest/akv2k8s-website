@@ -5,7 +5,11 @@ description: "Most frequently asked questions"
 
 ## How does Akv2k8s compare to Azure Key Vault Provider for Secrets Store CSI Driver?
 
-On a high level Akv2k8s was created to securely pass secrets through environment variables into Docker containers and applications. Azure Key Vault Provider for Secrets Store CSI Driver on the other hand was created to access secrets through volumes. It boils down how to how you want your application to access secrets. The Akv2k8s project is highly motivated by the 12 Factor App principles and believes passing configuration (including secrets) through environment variables is the way to go. If you prefer accessing secrets from a volume, use Azure Key Vault Provider for Secrets Store CSI Driver.
+On a high level Akv2k8s was created to securely pass secrets through environment variables into Docker containers and applications, or sync to native Kubernetes `Secret`s. 
+
+*Azure Key Vault Provider for Secrets Store CSI Driver* on the other hand was created to access secrets through volumes. 
+
+It boils down how to how you want your application to access secrets. The Akv2k8s project is highly motivated by the 12 Factor App principles and believes passing configuration (including secrets) through environment variables is the way to go. If you prefer accessing secrets from a volume, use *Azure Key Vault Provider for Secrets Store CSI Driver*.
 
 ## Can we see the secret value when using env-injection option?
 
@@ -49,3 +53,9 @@ Same 3 options as for the Controller, plus:
 
 1. Disable the env-injector auth service and use aad-pod-identity with your pod
 2. Disable the env-injector auth service and pass credentials directly to your pod through environment variables
+
+For more information, see [Authentication](security/authentication).
+
+## I use Managed Identity with aad-pod-identity and both the Controller and Env-Injector fails to start
+
+This is because aad-pod-identity intercept all authentication requests for Managed Identities. The solution is to [enable a Pod Identity exception](installation/with-aad-pod-identity).
