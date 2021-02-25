@@ -46,9 +46,9 @@ module.exports = {
             'installation/requirements',
             'installation/on-azure-aks',
             'installation/outside-azure-aks',
+            'installation/crd',
             'installation/without-helm',
             'installation/upgrade',
-            'installation/crd',
             'installation/with-aad-pod-identity',
           ],
           Tutorials: [
