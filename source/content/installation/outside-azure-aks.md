@@ -5,19 +5,24 @@ description: "Learn how to install Azure Key Vault to Kubernetes outside Azure A
 
 > Make sure to check the [requirements](requirements) before installing.
 
-## About Custom Resource Definitions
+Azure Key Vault is a Microsoft Azure product and Azure Key Vault to Kubernetes (akv2k8s) is most commonly used on Azure AKS (see [Installing on Azure AKS](on-azure-aks)), but can also be used outside Azure AKS. Because of this a few more settings needs to be provided in order to have akv2k8s run successfully outside Azure AKS.
 
-On first install, the Helm Chart will add the `AzureKeyVaultSecret` CRD to Kubernetes if it does not already exists. On later upgrades or if it already exists, any changed to the CRD will not be updated by the Helm Chart. This is by design: https://helm.sh/docs/chart_best_practices/custom_resource_definitions/#method-1-let-helm-do-it-for-you
+Akv2k8s rely heavily on Helm to configure its Kubernetes resources. If Helm is not an option, see [Installing without Helm](without-helm).
 
-NOTE: When upgrading Azure Key Vault to Kubernetes, manually apply CRDs before upgrade. Latest CRDs will always be available at https://github.com/sparebankenvest/azure-key-vault-to-kubernetes/crds and can be installed manually by:
+## Configurations
+
+The akv2k8s Helm chart support many [configuration options](https://github.com/SparebankenVest/public-helm-charts/blob/master/stable/akv2k8s/README.md#configuration). Here is a set of mandatory settings that must be provided in order to run akv2k8s outside Azure AKS:
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/sparebankenvest/azure-key-vault-to-kubernetes/master/crds/AzureKeyVaultSecret.yaml
-```
+--set global.keyVaultAuth=environment
+``` 
 
-In versions <=1.2 of Akv2k8s only the `AzureKeyVaultSecret` CRD is needed.
+The above settings tells akv2k8s to look for Azure Key Vault credentials in environment variables. The available options are documented by Microsoft here: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables (see example below).
 
->Note: If you delete the `AzureKeyVaultSecret` CRD from Kubernetes, all resources of type `AzureKeyVaultSecret` created in cluster will be removed. This is by design: https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#delete-a-customresourcedefinition
+## Other Configurations
+
+* `global.logLevel` - is `info` by default. To increase log level use either `debug` or `trace`.
+* `global.logFormat` - is `text` by default. To use json, set log format to `json`.
 
 ## Installation
 
