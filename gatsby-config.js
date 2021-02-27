@@ -36,7 +36,7 @@ module.exports = {
         twitterHandle: '',
         defaultVersion: '1.1',
         versions: {
-          '1.2-beta': 'v1.2.0-beta',
+          '1.1': 'v1.1.0',
           '1.0': 'v1.0.2',
         },
         sidebarCategories: {
