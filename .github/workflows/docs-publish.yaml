@@ -4,7 +4,8 @@ on:
   push:
     branches:
     - master
-    - v1.2.0-beta
+    - v1.1.0
+    - v1.0.2
 
 jobs:
   build-deploy-docs:
