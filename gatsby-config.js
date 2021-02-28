@@ -81,7 +81,6 @@ module.exports = {
             'troubleshooting/known-issues',
           ],
           Reference: [
-            'reference/index',
             'reference/azure-key-vault-secret',
           ],
         },

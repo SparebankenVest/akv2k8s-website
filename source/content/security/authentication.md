@@ -31,13 +31,11 @@ Fore more details, see the [Controller Helm Chart](https://github.com/Sparebanke
 
 The Env-Injector execute locally inside Pods and needs AKV credentials to download and inject secrets into container programs. You can either use default authentication (AKS credentials) or custom authentication. Use the following decision tree to find the best option:
 
-![Authentication decision tree](../assets/auth-decision.svg)
+![Authentication decision tree](https://embed.creately.com/9XlkIhybc1S?type=svg)
 
-> **For custom AKV authentication using Option 1 and akv2k8s versions `< 1.1.0`, set `customAuth.enabled=true` and `customAuth.autoInject.enabled=true` to have the Env-Injector auto-inject credentials as a Kubernetes Secret into Pods. Akv2k8s versions `> 1.1.0` handles this automatically through the auth-service introduced in version `1.1.0` without using Kubernetes Secret.**
+> **For multi-tenant environments (using namespaces as isolation), disabling the Auth Service and pass AKV credentials to each Pod is currently the only viable option.**
 
-> **For multi-tenant environments (using namespaces as isolation), Option 2 is currently the only viable option.**
-
-Fore more details, see the [Env Injector Helm Chart](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/azure-key-vault-env-injector/README.md) and which custom AKV authentication options are available below.
+Fore more details, see the [Helm Chart](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/akv2k8s/README.md) and which custom AKV authentication options are available below.
 
 ### Using aad-pod-identity and MSI (System Assigned Managed Identity or User Assigned Managed Identity)
 
@@ -45,31 +43,15 @@ If `aad-pod-identity` is installed in a cluster with MSI and akv2k8s, akv2k8s wi
 
 >The authorization request to fetch a Service Principal Token from an MSI endpoint is sent to Azure Instance Metadata Service (IMDS) endpoint (169.254.169.254), which is redirected to the NMI pod. 
 
-This will prevent akv2k8s to do MSI authentication requests directly with the MSI endpoint, because requests gets delayed by 10-60 seconds:
-
 >Identity assignment on VM takes 10-20s and 40-60s in case of VMSS.
 
-Fortunately aad-pod-identity has the concept of application exceptions which will allow akv2k8s to handle MSI authentication requests directly:
-
-```
-apiVersion: "aadpodidentity.k8s.io/v1"
-kind: AzurePodIdentityException
-metadata:
-  name: akv2k8s-exception
-  namespace: akv2k8s # change if akv2k8s is installed in a different ns
-spec:
-  podLabels:
-    foo: bar
-    app: custom
-```
-
-See https://github.com/Azure/aad-pod-identity/blob/master/docs/readmes/README.app-exception.md for more details.
+See [Add Exception for aad-pod-identity](../installation/with-aad-pod-identity) for how to add a `AzurePodIdentityException` and have akv2k8s use MSI without interference of aad-pod-identity.
 
 ### Using custom authentication with AAD Pod Identity (aad-pod-identity)
 
-First decide on either option 1 or 2 from the [authentication decision tree](#akv-authentication-with-the-env-injector) above.
+First follow the [authentication decision tree](#akv-authentication-with-the-env-injector) above.
 
-#### Option 1 - pass aad-pod-identity to the env-injector
+#### Option 1 (keyVaultAuth=environment) - pass aad-pod-identity to the env-injector
 
 When installing the env-injector using the official [`akv2k8s`](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/akv2k8s) Helm chart, set the following values:
 
@@ -78,9 +60,15 @@ When installing the env-injector using the official [`akv2k8s`](https://github.c
 --set env_injector.podLabels.aadpodidbinding=[your aad identity]
 ```
 
-#### Option 2 - pass aad-pod-identity to every application pod
+#### Option 2 (authService=false) - pass aad-pod-identity to every application pod
 
-TBD
+First tell Env Injector not to use the Auth Service:
+
+```
+--set env_injector.useAuthService=false
+```
+
+Then for every Pod pass on credentials using aad-pod-identity as you would with any other Pod. 
 
 ## Custom AKV Authentication Options
 
