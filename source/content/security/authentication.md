@@ -65,7 +65,7 @@ When installing the env-injector using the official [`akv2k8s`](https://github.c
 First tell Env Injector not to use the Auth Service:
 
 ```
---set env_injector.useAuthService=false
+--set env_injector.authService=false
 ```
 
 Then for every Pod pass on credentials using aad-pod-identity as you would with any other Pod. 
