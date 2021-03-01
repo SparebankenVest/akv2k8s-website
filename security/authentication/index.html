@@ -108,7 +108,7 @@
 --set env_injector.podLabels.aadpodidbinding=[your aad identity]</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span><span></span></span></pre></div></div></div>
 <h4 id="option-2-authservicefalse---pass-aad-pod-identity-to-every-application-pod" style="position:relative"><a class="headingLink" href="#option-2-authservicefalse---pass-aad-pod-identity-to-every-application-pod">Option 2 (authService=false) - pass aad-pod-identity to every application pod</a></h4>
 <p>First tell Env Injector not to use the Auth Service:</p>
-<div class="gatsby-highlight" data-language="text"><div class="css-1gcd36t e1ulzjg70"><div class="css-r8v8pb e1ulzjg73"><pre style="counter-reset:linenumber NaN" class="language-text line-numbers"><code class="language-text">--set env_injector.useAuthService=false</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span></span></pre></div></div></div>
+<div class="gatsby-highlight" data-language="text"><div class="css-1gcd36t e1ulzjg70"><div class="css-r8v8pb e1ulzjg73"><pre style="counter-reset:linenumber NaN" class="language-text line-numbers"><code class="language-text">--set env_injector.authService=false</code><span aria-hidden="true" class="line-numbers-rows" style="white-space:normal;width:auto;left:0"><span></span></span></pre></div></div></div>
 <p>Then for every Pod pass on credentials using aad-pod-identity as you would with any other Pod. </p>
 <h2 id="custom-akv-authentication-options" style="position:relative"><a class="headingLink" href="#custom-akv-authentication-options">Custom AKV Authentication Options</a></h2>
 <p>The following authentication options are available:</p>
