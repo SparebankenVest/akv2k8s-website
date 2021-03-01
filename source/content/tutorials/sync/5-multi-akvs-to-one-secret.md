@@ -1,5 +1,5 @@
 ---
-title: "Sync Multiple Secrets"
+title: "Sync Multiple AKVS to One Secret"
 description: "Sync multiple AzureKeyVaultSecrets to a single Kubernetes Secret"
 ---
 

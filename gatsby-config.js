@@ -58,7 +58,7 @@ module.exports = {
             'tutorials/sync/2-certificate',
             'tutorials/sync/3-signing-key',
             'tutorials/sync/4-multi-key-value-secret',
-            'tutorials/sync/5-multi-akvs-to-one-secret.md',
+            'tutorials/sync/5-multi-akvs-to-one-secret',
             'tutorials/sync/6-secret-to-configmap',
             'tutorials/env-injection/1-secret',
             'tutorials/env-injection/2-certificate',
