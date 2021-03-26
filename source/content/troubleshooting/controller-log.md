@@ -4,7 +4,7 @@ description: "How to access the Controller log and specify log level"
 ---
 
 ```bash
-kubectl -n akv2k8s logs deployment/azure-key-vault-controller
+kubectl -n akv2k8s logs deployment/akv2k8s-controller
 ```
 
 To set log-level for Controller, pass inn environment variable `LOG_LEVEL` to the container or the `logLevel` parameter for the Helm Chart. 
