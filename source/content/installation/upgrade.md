@@ -38,4 +38,15 @@ kubectl apply -f https://raw.githubusercontent.com/sparebankenvest/azure-key-vau
 
 ## Re-deploy Existing Pods with Env Injected Variables
 
-Version 1.2 of the Env Injector has changed how the Auth Service works. It now requires a client certificate and older versions of the Env Injector Sidecar does not work with version 1.2. 
+Version 1.2 of the Env Injector has changed how the Auth Service works. It now requires a client certificate and older versions of the Env Injector Sidecar does not work with version 1.2.
+
+## Upgrading Helm chart version to v2.x.x from v1.1.x
+
+As a consequence of breaking changes in the akv2k8s Helm chart a major version bump to 2.x.x was required.
+Uninstallation of v1.1.x is required before installing v2.x.x.
+
+```
+helm uninstall akv2k8s -n akv2k8s
+```
+
+>Note: Remember to upgrade the CRD manually if an old CRD version is applied to the cluster, as Helm does not handle CRD upgrades.
