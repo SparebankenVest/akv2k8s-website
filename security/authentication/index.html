@@ -85,7 +85,8 @@
 <p>The Controller will need AKV credentials to get Secrets from AKV and store them as Kubernetes Secrets or Config Maps. <strong>If the default option (AKS credentials) works for you, use that.</strong> If not, use custom authentication by passing inn the value <code class="language-text">controller.keyVaultAuth=environment</code> to the Controller and pick one of the <a href="#custom-akv-authentication-options">Authentication options</a> described below.</p>
 <p>Fore more details, see the <a href="https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/azure-key-vault-controller/README.md" target="_blank" rel="noopener noreferrer">Controller Helm Chart</a>.</p>
 <h2 id="akv-authentication-with-the-env-injector" style="position:relative"><a class="headingLink" href="#akv-authentication-with-the-env-injector">AKV Authentication with the Env-Injector</a></h2>
-<p>The Env-Injector execute locally inside Pods and needs AKV credentials to download and inject secrets into container programs. You can either use default authentication (AKS credentials) or custom authentication. Use the following decision tree to find the best option:</p>
+<p>The Env-Injector execute locally inside Pods and needs AKV credentials to download and inject secrets into container programs. You can either use default authentication (AKS credentials) or custom authentication. The Env-Injector also needs to access the registry where the container image is stored (ACR for example), thus make sure you provide authentication which has read rights to your registry.</p>
+<p>Use the following decision tree to find the best option:</p>
 <p><img src="https://embed.creately.com/9XlkIhybc1S?type=svg" alt="Authentication decision tree"/></p>
 <blockquote>
 <p><strong>For multi-tenant environments (using namespaces as isolation), disabling the Auth Service and pass AKV credentials to each Pod is currently the only viable option.</strong></p>
