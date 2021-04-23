@@ -27,10 +27,10 @@ helm upgrade --install akv2k8s spv-charts/akv2k8s \
 
 ## Manually upgrading Custom Resource Definition (CRD)
 
-Latest CRDs are always be available at https://github.com/sparebankenvest/azure-key-vault-to-kubernetes/crds and can be installed manually by:
+Latest CRDs are always be available at https://github.com/SparebankenVest/azure-key-vault-to-kubernetes/tree/master/crds and can be installed manually by:
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/sparebankenvest/azure-key-vault-to-kubernetes/master/crds/AzureKeyVaultSecret.yaml
+kubectl apply -f https://raw.githubusercontent.com/SparebankenVest/azure-key-vault-to-kubernetes/master/crds/AzureKeyVaultSecret.yaml
 ```
 
 >Note: If you delete the `AzureKeyVaultSecret` CRD from Kubernetes, all resources of type `AzureKeyVaultSecret` created in cluster will be removed. This is by design: https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#delete-a-customresourcedefinition
