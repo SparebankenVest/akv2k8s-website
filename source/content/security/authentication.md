@@ -13,7 +13,7 @@ For more details about AKV authentication, see:
 
 ## Situations where Default Authentication does not Work
 
-Currently only one situations has been identified, where default authentication does not work inside Azure.
+Currently only one situation has been identified, where default authentication does not work inside Azure.
 
 **When a [Pod Security Policy](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) is configured in the cluster, preventing containers from reading from the host.**
 
