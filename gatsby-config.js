@@ -34,8 +34,9 @@ module.exports = {
         spectrumPath: '',
         spectrumHandle: '',
         twitterHandle: '',
-        defaultVersion: '1.2',
+        defaultVersion: '1.3',
         versions: {
+          '1.2': 'v1.2.3',
           '1.1': 'v1.1.0',
           '1.0': 'v1.0.2',
         },
