@@ -61,6 +61,8 @@ module.exports = {
             'tutorials/sync/4-multi-key-value-secret',
             'tutorials/sync/5-multi-akvs-to-one-secret',
             'tutorials/sync/6-secret-to-configmap',
+            'tutorials/sync/7-namespace-isolation-of-controller',
+            'tutorials/sync/8-label-filtered-syncing',
             'tutorials/env-injection/1-secret',
             'tutorials/env-injection/2-certificate',
             'tutorials/env-injection/3-signing-key',
