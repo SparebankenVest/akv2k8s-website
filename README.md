@@ -10,6 +10,6 @@ The **deployed** version of the documentation for this repository is available a
 
 From the root of this repository:
 
-* `make install`
-* `make run`
+* `make docs-install-dev`
+* `make docs-run-dev`
 * Open a browser to the link provided in the console.
