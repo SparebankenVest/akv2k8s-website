@@ -63,6 +63,7 @@ module.exports = {
             'tutorials/sync/6-secret-to-configmap',
             'tutorials/sync/7-namespace-isolation-of-controller',
             'tutorials/sync/8-label-filtered-syncing',
+            'tutorials/sync/9-certificate-as-AKV-secret',
             'tutorials/env-injection/1-secret',
             'tutorials/env-injection/2-certificate',
             'tutorials/env-injection/3-signing-key',
