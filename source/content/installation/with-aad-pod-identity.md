@@ -3,10 +3,10 @@ title: "Add Exception for aad-pod-identity"
 description: "Learn what needs to be done to run successfully with aad-pod-identity"
 ---
 
-In order to use Managed Identities with Pods, Microsoft have developed a open source project called aad-pod-identity or Azure Active Directory Pod Identity for Kubernetes. There is three possible configurations that lets you run akv2k8s successfully in the same cluster as aad-pod-identity. They depend on the [authentication method against Azure Key Vault](../security/authentication.md) you choose for akv2k8s in your cluster.
+In order to use Managed Identities with Pods, Microsoft have developed a open source project called aad-pod-identity or Azure Active Directory Pod Identity for Kubernetes. There is three possible configurations that lets you run akv2k8s successfully in the same cluster as aad-pod-identity. They depend on the [authentication method against Azure Key Vault](../security/authentication.md) you choose for akv2k8s:
 1. When using `keyVaultAuth=azureCloudConfig`, i.e. let akv2k8s use the default AKS managed identity, you need to configure akv2k8s with `addAzurePodIdentityException=true` upon installation.
-2. When using `keyVaultAuth=environment` together with `env_injector.podLabels.aadpodidbinding=<AzureIdentityBinding selector>` and `controller.podLabels.aadpodidbinding=<AzureIdentityBinding selector>`, i.e. let akv2k8s use a user defined managed identity. This makes the akv2k8s pods use the AAD pod-managed identity corresponding to the pod label. `addAzurePodIdentityExeption` is false in this case.
-3. When using `env_injector.authService=false` together with either option 1 or 2. This is effectively configures akv2k8s not to use the key vault auth service provided by the env injector together with one of the options above.
+2. When using `keyVaultAuth=environment` together with `env_injector.podLabels.aadpodidbinding=<AzureIdentityBinding selector>` and/or `controller.podLabels.aadpodidbinding=<AzureIdentityBinding selector>`, i.e. let akv2k8s use a user defined managed identity. This makes the akv2k8s pods use the AAD pod-managed identity refered to by the `aadpodidbinding` label. `addAzurePodIdentityExeption` is false in this case.
+3. When using `env_injector.authService=false` together with either option 1 or 2. This effectively configures akv2k8s not to use the key vault auth service provided by the env injector.
 > **NB**: Some user reports problems with option 3 when pulling images from private image repositories.
 
 
@@ -33,7 +33,7 @@ As documented by `aad-pod-identity`:
 This will effectively prevent akv2k8s to do MSI authentication requests directly with the MSI endpoint (using Managed Identity with Azure Key Vault) and both the Controller and Evn Injector will fail during startup.
 
 ## Env injection for pods pulling private image repositories
-When an application pod uses images from a private image repository and wants to use env-injection it is important that the Managed indentity used by the akv2k8s mutating webhook pods (env-injector)
+When an application pod uses images from a private image repository and wants to use env-injection, it is important that the Managed indentity used by the akv2k8s mutating webhook pods (env-injector)
 1. has `AcrPull` access to the image repository
 2. has Get access for the correct objects in the desired Key Vault.
 > Note: requirement 2 is not the case if akv2k8s is configured with `env_injector.authService=false`, i.e. env-injector key-vault auth service disabled.
