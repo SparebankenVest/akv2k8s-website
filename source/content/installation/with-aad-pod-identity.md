@@ -21,8 +21,10 @@ The akv2k8s Helm chart has a simple setting for this. Just set `addAzurePodIdent
 
 As documented by `aad-pod-identity`:
 
->The authorization request to fetch a Service Principal Token from an MSI endpoint is sent to Azure Instance Metadata Service (IMDS) endpoint (169.254.169.254), **which is redirected to the NMI pod**. 
+>The authorization request to fetch a Service Principal Token from an MSI endpoint is sent to Azure Instance Metadata Service (IMDS) endpoint (169.254.169.254), **which is redirected to the [NMI pod](https://azure.github.io/aad-pod-identity/docs/concepts/nmi/)**. 
 
 >Identity assignment on VM takes 10-20s and 40-60s in case of VMSS.
 
 This will effectively prevent akv2k8s to do MSI authentication requests directly with the MSI endpoint (using Managed Identity with Azure Key Vault) and both the Controller and Evn Injector will fail during startup.
+
+>*<sub>Note: AAD Pod Identity aka Assign Azure Active Directory Identities to Kubernetes is deprecated to favour [Azure Workload Identity](https://azure.github.io/azure-workload-identity/) on 10/24/2022, though its not in GA and AAD Pod Idenity continue to enjoy critical bug fixes until Azure Workload Identity reaches general availability.* </sub>
