@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "algoliasearch": "^4.4.0",
-    "gatsby": "2.24.51",
+    "gatsby": "4.25.7",
     "gatsby-plugin-gtag": "^1.0.13",
     "gatsby-source-git": "1.1.0",
     "gatsby-source-graphql": "^2.7.2",
