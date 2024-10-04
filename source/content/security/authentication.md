@@ -23,7 +23,7 @@ Two solutions exists:
 
 ## AKV Authentication with the Controller
 
-The Controller will need AKV credentials to get Secrets from AKV and store them as Kubernetes Secrets or Config Maps. **If the default option (AKS credentials) works for you, use that.** If not, use custom authentication by passing inn the value `controller.keyVaultAuth=environment` to the Controller and pick one of the [Authentication options](#custom-akv-authentication-options) described below.
+The Controller will need AKV credentials to get Secrets from AKV and store them as Kubernetes Secrets or Config Maps. **If the default option (AKV credentials) works for you, use that.** If not, use custom authentication by passing inn the value `controller.keyVaultAuth=environment` to the Controller and pick one of the [Authentication options](#custom-akv-authentication-options) described below.
 
 Fore more details, see the [Controller Helm Chart](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/azure-key-vault-controller/README.md).
 
