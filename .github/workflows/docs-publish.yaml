@@ -4,22 +4,21 @@ on:
   push:
     branches:
     - master
-    - v1.1.0
-    - v1.0.2
+    - v1.4.0
 
 jobs:
   build-deploy-docs:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@master
 
     - name: Setup Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
-        node-version: '10.19.x'
+        node-version: 18
 
     - name: Cache dependencies
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       with:
         path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -32,8 +31,8 @@ jobs:
         npm run build
 
     - name: Deploy
-      uses: peaceiris/actions-gh-pages@v2.5.0
-      env:
-        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: ./public
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        publish_branch: gh-pages
+        publish_dir: ./public
