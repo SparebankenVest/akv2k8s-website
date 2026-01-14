@@ -56,17 +56,17 @@ List AzureKeyVaultSecret's:
 
 ```bash
 $ kubectl -n akv-test get akvs
-NAME            VAULT          VAULT OBJECT   SECRET NAME         SYNCHED
-secret-sync-1   akv2k8s-test   my-secret      my-secrets-from-akv  
-secret-sync-2   akv2k8s-test   my-secret      my-secrets-from-akv  
+NAME            VAULT          VAULT OBJECT     SECRET NAME         SYNCHED
+secret-sync-1   akv2k8s-test   my-secret        my-secrets-from-akv  
+secret-sync-2   akv2k8s-test   my-other-secret  my-secrets-from-akv  
 ```
 
-Shortly a Kubernetes secret should exist:
-
+Shortly a Kubernetes secret should exist with two in data filed:
+*(Now we have two secrets data stored in this single secret we created)*
 ```bash
 $ kubectl -n akv-test get secret
 NAME                 TYPE    DATA  AGE
-my-secrets-from-akv  Opaque  1     1m 
+my-secrets-from-akv  Opaque  2     1m 
 ```
 
 Inspect secret to see it contains both akvs values:
