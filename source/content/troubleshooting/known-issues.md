@@ -24,3 +24,11 @@ Error creating: Internal error occurred: failed calling webhook "pods.azure-key-
 ```
 
 **Solution:** Make sure to install Env Injector into its own dedicated namespace, and NOT label namespace with `azure-key-vault-env-injection: enabled`. This label is ONLY intended for namespaces where Env Injector is going to inject secrets, not where Env Injector is installed.
+
+## Env Injector - application security context is not changed
+
+From akv2k8s 1.6, the Env-Injector does not mutate the application pod or application container security context. It only sets security context values for its own init container.
+
+If an application container requires `runAsUser`, `runAsGroup`, `fsGroup`, `seccompProfile`, or similar security settings, configure those settings directly on the workload or through your normal Kubernetes admission policies.
+
+See [Runtime configuration](../reference/runtime-configuration) for the init-container security context options available to the Env-Injector webhook.

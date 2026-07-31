@@ -33,6 +33,8 @@ Fore more details, see the [Controller Helm Chart](https://github.com/Sparebanke
 
 The Env-Injector execute locally inside Pods and needs AKV credentials to download and inject secrets into container programs. You can either use default authentication (AKS credentials) or custom authentication. The Env-Injector also needs to access the registry where the container image is stored (ACR for example), thus make sure you provide authentication which has read rights to your registry.
 
+When using `azureCloudConfig`, akv2k8s can use Azure cloud config credentials for Azure Container Registry image inspection. For other authentication modes, image inspection uses the Kubernetes service account and image pull secrets configured for the workload.
+
 Use the following decision tree to find the best option:
 
 ![Authentication decision tree](https://embed.creately.com/9XlkIhybc1S?type=svg)
