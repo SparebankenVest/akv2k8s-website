@@ -9,6 +9,7 @@ Make sure to check the [requirements](requirements) before installing.
 
 * If running on Azure AKS, see [Installing on Azure AKS](on-azure-aks)
 * If running outside Azure AKS, see [Installing outside Azure AKS](outside-azure-aks)
+* If using Azure Workload Identity, see [Installing with Azure Workload Identity](with-azure-workload-identity)
 
 In addition, if the Kubernetes cluster has [Azure Active Directory Pod Identity for Kubernetes (aad-pod-identity)](https://github.com/Azure/aad-pod-identity) installed, check out if a [`AzurePodIdentityException` is required for akv2k8s to authenticate successfully with Azure](with-aad-pod-identity).
 

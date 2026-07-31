@@ -17,7 +17,7 @@ The akv2k8s Helm chart support many [configuration options](https://github.com/S
 --set global.keyVaultAuth=environment
 ``` 
 
-The above settings tells akv2k8s to look for Azure Key Vault credentials in environment variables. The available options are documented by Microsoft here: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables (see example below).
+The above settings tells akv2k8s to look for Azure Key Vault credentials in environment variables. Use `global.keyVaultAuth=environment-azidentity` instead when the cluster provides Azure SDK `DefaultAzureCredential` inputs, for example with Azure Workload Identity. The available options are documented by Microsoft here: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables (see example below).
 
 ## Other Configurations
 
@@ -61,4 +61,3 @@ helm upgrade --install akv2k8s spv-charts/akv2k8s \
 ### Legacy Charts
 
 Prior to Akv2k8s version 1.1, two Helm charts existed: `azure-key-vault-controller` and `azure-key-vault-env-injector`. These are deprecated in favor of the new `akv2k8s` chart. The old Charts used Helm 2 and the new Chart uses Helm 3. For this reason we still maintain the old charts for version 1.1, but we will not maintain future versions after 1.1. Those will only be available in the `akv2k8s` Chart.
-

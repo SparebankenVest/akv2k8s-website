@@ -5,6 +5,8 @@ description: "Learn about the different options for authenticating with Azure Ke
 
 By default both the Controller and the Env Injector will assume it is running on Azure (since Azure Key Vault is most commonly used in Azure) - and use the default AKS credentials for authentication (a Service Principal or Azure Managed Identities) - unless custom authentication is provided.
 
+For new AKS clusters, Azure Workload Identity is the recommended custom identity integration. See [Installing with Azure Workload Identity](../installation/with-azure-workload-identity) for setup instructions.
+
 The Controller and Env-Injector have to handle AKV authentication quite differently, as the Controller is centralized and the Env-Injector executes in context of Pods.
 
 For more details about AKV authentication, see:
@@ -23,7 +25,7 @@ Two solutions exists:
 
 ## AKV Authentication with the Controller
 
-The Controller will need AKV credentials to get Secrets from AKV and store them as Kubernetes Secrets or Config Maps. **If the default option (AKS credentials) works for you, use that.** If not, use custom authentication by passing inn the value `controller.keyVaultAuth=environment` to the Controller and pick one of the [Authentication options](#custom-akv-authentication-options) described below.
+The Controller will need AKV credentials to get Secrets from AKV and store them as Kubernetes Secrets or Config Maps. **If the default option (AKS credentials) works for you, use that.** If not, use custom authentication by setting `controller.keyVaultAuth` to `environment` or `environment-azidentity` and pick one of the [Authentication options](#custom-akv-authentication-options) described below.
 
 Fore more details, see the [Controller Helm Chart](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/azure-key-vault-controller/README.md).
 
@@ -38,6 +40,17 @@ Use the following decision tree to find the best option:
 > **For multi-tenant environments (using namespaces as isolation), disabling the Auth Service and pass AKV credentials to each Pod is currently the only viable option.**
 
 Fore more details, see the [Helm Chart](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/akv2k8s/README.md) and which custom AKV authentication options are available below.
+
+### Using Azure Workload Identity
+
+Set the Key Vault auth mode to `environment-azidentity` to make akv2k8s use Azure SDK `DefaultAzureCredential`.
+
+```yaml
+global:
+  keyVaultAuth: environment-azidentity
+```
+
+When used with Azure Workload Identity, the workload identity webhook injects the environment variables and token file required by `DefaultAzureCredential`. See [Installing with Azure Workload Identity](../installation/with-azure-workload-identity) for the required labels, service account annotations, and federated credentials.
 
 ### Using aad-pod-identity and MSI (System Assigned Managed Identity or User Assigned Managed Identity)
 
@@ -78,6 +91,7 @@ The following authentication options are available:
 
 | Authentication type |	Environment variable         | Description |
 | ------------------- | ---------------------------- | ------------ |
+| Azure SDK DefaultAzureCredential | `AZURE_CLIENT_ID` | Used by `environment-azidentity`, including Azure Workload Identity. Other environment variables are injected by Azure Workload Identity or configured according to Azure SDK credential support. |
 | Managed identities for Azure resources (used to be MSI) | | No credentials are needed for managed identity authentication. The Kubernetes cluster must be running in Azure and the `aad-pod-identity` controller must be installed. A `AzureIdentity` and `AzureIdentityBinding` must be defined. See https://github.com/Azure/aad-pod-identity for details. |
 | Client credentials 	| `AZURE_TENANT_ID` 	         | The ID for the Active Directory tenant that the service principal belongs to. |
 |                     |	`AZURE_CLIENT_ID` 	         | The name or ID of the service principal. |

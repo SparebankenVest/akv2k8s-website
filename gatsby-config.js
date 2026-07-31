@@ -34,8 +34,12 @@ module.exports = {
         spectrumPath: '',
         spectrumHandle: '',
         twitterHandle: '',
-        defaultVersion: '1.4',
+        defaultVersion: '1.8',
         versions: {
+          '1.8': 'master',
+          '1.7': 'master',
+          '1.6': 'master',
+          '1.5': 'v1.5.0',
           '1.4': 'v1.4.0',
           '1.3': 'v1.3.3',
           '1.2': 'v1.2.3',
@@ -77,6 +81,7 @@ module.exports = {
             'security/authentication',
             'security/authorization',
             'security/enable-env-injection',
+            'security/supply-chain',
           ],
           Monitoring: [
             'monitoring/logs',
@@ -89,6 +94,7 @@ module.exports = {
           ],
           Reference: [
             'reference/azure-key-vault-secret',
+            'reference/runtime-configuration',
           ],
         },
         navConfig: {},
