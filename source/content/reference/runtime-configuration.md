@@ -1,9 +1,9 @@
 ---
 title: "Runtime configuration"
-description: "Runtime flags and environment variables supported by akv2k8s 1.6"
+description: "Runtime flags and environment variables supported by akv2k8s 1.7"
 ---
 
-Most installations configure akv2k8s through the Helm chart. The options below are component runtime flags or environment variables that were relevant for the 1.6 release.
+Most installations configure akv2k8s through the Helm chart. The options below are component runtime flags or environment variables that were relevant for the 1.7 release.
 
 ## Controller
 
@@ -49,4 +49,4 @@ The Env-Injector accepts AzureKeyVaultSecret references in environment variable 
 <azure-key-vault-secret-name>@azurekeyvault?<query>
 ```
 
-In 1.6, the lookup parser accepts RFC 1123-style AzureKeyVaultSecret names and query names containing dots.
+In 1.7, the lookup parser accepts RFC 1123-style AzureKeyVaultSecret names and query names containing dots.

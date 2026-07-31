@@ -34,8 +34,9 @@ module.exports = {
         spectrumPath: '',
         spectrumHandle: '',
         twitterHandle: '',
-        defaultVersion: '1.6',
+        defaultVersion: '1.7',
         versions: {
+          '1.7': 'v1.7.4',
           '1.6': 'v1.6.0',
           '1.5': 'v1.5.0',
           '1.4': 'v1.4.0',
@@ -90,6 +91,7 @@ module.exports = {
             'troubleshooting/known-issues',
           ],
           Reference: [
+            'reference/release-1.7',
             'reference/azure-key-vault-secret',
             'reference/runtime-configuration',
           ],
