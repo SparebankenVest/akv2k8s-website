@@ -15,14 +15,6 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-printer',
-      options: {
-        puppeteerLaunchOptions: {
-          args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        },
-      },
-    },
-    {
       resolve: 'gatsby-theme-apollo-docs',
       options: {
         ...themeOptions,

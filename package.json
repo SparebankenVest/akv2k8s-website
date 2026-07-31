@@ -3,6 +3,7 @@
     "node": ">=10.13.0"
   },
   "scripts": {
+    "postinstall": "node scripts/patch-gatsby-printer.js",
     "prestart": "gatsby clean",
     "start": "GATSBY_ALGOLIA_ENABLED=false gatsby develop",
     "build": "gatsby build",
