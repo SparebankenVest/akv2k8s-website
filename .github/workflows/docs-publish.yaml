@@ -27,10 +27,13 @@ jobs:
           ${{ runner.os }}-node-
 
     - name: Build
+      env:
+        GATSBY_SKIP_PRINTER: 'true'
       run: |
         npm i
         node scripts/patch-gatsby-printer.js
         grep -q -- "--no-sandbox" node_modules/gatsby-plugin-printer/run-screenshots.js
+        grep -q -- "GATSBY_SKIP_PRINTER" node_modules/gatsby-plugin-printer/gatsby-node.js
         npm run build
 
     - name: Deploy
