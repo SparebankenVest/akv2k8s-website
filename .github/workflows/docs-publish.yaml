@@ -34,7 +34,7 @@ jobs:
         node scripts/patch-gatsby-printer.js
         grep -q -- "--no-sandbox" node_modules/gatsby-plugin-printer/run-screenshots.js
         grep -q -- "GATSBY_SKIP_PRINTER" node_modules/gatsby-plugin-printer/gatsby-node.js
-        npm run build
+        node scripts/build-and-exit.js
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v4
