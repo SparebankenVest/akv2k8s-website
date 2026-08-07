@@ -16,7 +16,7 @@ It boils down to how you want your application to access secrets. The Akv2k8s pr
 The secrets will not be revealed by env-injector and cannot be found in logs, volumes or in Kubernetes. The only place where the secrets exists is in the application process running inside the container. Depending on your security settings for your Pod and Container, you can exec into a shell in your pod and run: 
 
 ```
-cat /proc/1/environ | xargs -0 -L1 |sort
+cat /proc/1/environ | xargs -0 -n1 |sort
 ```
 
 ...replacing `[pid]` with your process ID - often this is 1 in a container. This will list all env variables for the process.
