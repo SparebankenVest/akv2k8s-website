@@ -74,10 +74,10 @@ module.exports = {
             'tutorials/env-injection/5-pfx-certificate',
           ],
           Security: [
-            'security/introduction',
             'security/authentication',
             'security/authorization',
             'security/enable-env-injection',
+            'security/risk-assessments',
             'security/supply-chain',
           ],
           Monitoring: [

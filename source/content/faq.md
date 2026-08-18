@@ -25,7 +25,7 @@ To prevent this, see next question.
 
 ## Can I prevent env-injected secrets from being listed in `/proc/[pid]/environ` inside the container?
 
-Yes. Follow Docker Container best-practices and don't run your container as root: https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user
+Yes. Follow Docker container best practices and don't run your container as root: https://docs.docker.com/build/building/best-practices/
 
 ## Is Akv2k8s compatible with Google distroless images?
 

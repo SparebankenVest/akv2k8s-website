@@ -17,7 +17,7 @@ For more details about AKV authentication, see:
 
 The Controller will need AKV credentials to get Secrets from AKV and store them as Kubernetes Secrets or Config Maps. **If the default option (AKS credentials) works for you, use that.** If not, use custom authentication by setting `controller.keyVaultAuth` to `environment` or `environment-azidentity` and pick one of the [Authentication options](#custom-akv-authentication-options) described below.
 
-Fore more details, see the [Controller Helm Chart](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/azure-key-vault-controller/README.md).
+For more details, see the [akv2k8s Helm chart](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/akv2k8s/README.md).
 
 ## AKV Authentication with the Env-Injector
 
@@ -63,4 +63,4 @@ The following authentication options are available:
 
 **Note: These env variables are sensitive and should be stored in a Kubernetes `Secret` resource, then referenced by [Using Secrets as Environment Variables](https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables).** 
 
-See official MS documentation for more details on how environment base authentication works for Azure: https://docs.microsoft.com/en-us/go/azure/azure-sdk-go-authorization#use-environment-based-authentication
+See the [Azure SDK for Go authentication overview](https://learn.microsoft.com/en-us/azure/developer/go/sdk/authentication/authentication-overview) for environment-based authentication details.

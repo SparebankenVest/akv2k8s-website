@@ -27,7 +27,7 @@ $ openssl pkcs12 -export -out certificate.pfx -inkey private-key.key -in certifi
 ```
 > If the export password is not left empty the contorller will not be able to sync the secret.
 
-Now we want to convert the `certificate.pfx` file into a base64 encoded string and store it as a secret in Azure Key Vault. We use two [PowerShell](https://docs.microsoft.com/en-us/powershell/) commands to convert the `.pxf` file:
+Now we want to convert the `certificate.pfx` file into a base64 encoded string and store it as a secret in Azure Key Vault. We use two [PowerShell](https://learn.microsoft.com/en-us/powershell/) commands to convert the `.pxf` file:
 ```powershell
 # [Powershell]
 # Get content of certificate as byte stream, and convert to base64 string and store in .txt

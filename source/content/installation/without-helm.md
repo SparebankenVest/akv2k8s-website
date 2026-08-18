@@ -10,7 +10,7 @@ If Helm is not an option, use Helm on a local computer to generate the Kubernete
 Add Helm repository:
 
 ```bash
-helm repo add spv-charts http://charts.spvapi.no
+helm repo add spv-charts https://charts.spvapi.no
 helm repo update
 ```
 
