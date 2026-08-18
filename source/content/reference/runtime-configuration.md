@@ -37,6 +37,45 @@ Most installations configure akv2k8s through the Helm chart. The options below a
 | `WEBHOOK_CONTAINER_SECURITY_CONTEXT_GROUP_GID` | unset | Sets `runAsGroup` on the env executable init container when provided. |
 | `WEBHOOK_CONTAINER_SECURITY_CONTEXT_SECCOMP_RUNTIME_DEFAULT` | unset | Sets a `RuntimeDefault` seccomp profile on the env executable init container when `true`. |
 
+### Injected init-container security context
+
+These `WEBHOOK_CONTAINER_SECURITY_CONTEXT_*` variables configure the
+`copy-azurekeyvault-env` init container that the webhook adds to an application
+Pod with injected Key Vault environment variables. They do not configure the
+Env-Injector webhook Pod or the application containers.
+
+The injected init container always drops all Linux capabilities. The webhook
+does not change the Pod-level `securityContext`, so existing Pod-level settings
+remain under workload ownership.
+
+By default, the injected init container is privileged and allows a writable root
+filesystem and root execution. For a restricted workload policy, explicitly set
+the variables below to values compatible with the image and its mounted
+`/azure-keyvault/` directory:
+
+```yaml
+env:
+  - name: WEBHOOK_CONTAINER_SECURITY_CONTEXT_PRIVILEGED
+    value: "false"
+  - name: WEBHOOK_CONTAINER_SECURITY_CONTEXT_READ_ONLY
+    value: "true"
+  - name: WEBHOOK_CONTAINER_SECURITY_CONTEXT_NON_ROOT
+    value: "true"
+  - name: WEBHOOK_CONTAINER_SECURITY_CONTEXT_ALLOW_PRIVILEGE_ESCALATION
+    value: "false"
+  - name: WEBHOOK_CONTAINER_SECURITY_CONTEXT_USER_UID
+    value: "65534"
+  - name: WEBHOOK_CONTAINER_SECURITY_CONTEXT_GROUP_GID
+    value: "65534"
+  - name: WEBHOOK_CONTAINER_SECURITY_CONTEXT_SECCOMP_RUNTIME_DEFAULT
+    value: "true"
+```
+
+`ALLOW_PRIVILEGE_ESCALATION`, `USER_UID`, and `GROUP_GID` are left unset unless
+their variables are provided. Setting
+`WEBHOOK_CONTAINER_SECURITY_CONTEXT_SECCOMP_RUNTIME_DEFAULT` to `false` or
+leaving it unset does not add a seccomp profile.
+
 ## Injected Application Containers
 
 | Option | Default | Description |

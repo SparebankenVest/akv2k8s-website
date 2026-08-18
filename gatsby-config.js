@@ -54,7 +54,6 @@ module.exports = {
             'installation/crd',
             'installation/without-helm',
             'installation/upgrade',
-            'installation/with-aad-pod-identity',
             'installation/with-azure-workload-identity',
           ],
           Tutorials: [

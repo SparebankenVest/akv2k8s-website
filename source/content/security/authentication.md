@@ -13,16 +13,6 @@ For more details about AKV authentication, see:
   * [AKV Authentication with the Controller](#akv-authentication-with-the-controller) for AKV Controller authentication options
   * [AKV Authentication with the Env-Injector](#akv-authentication-with-the-env-injector) for AKV Env-Injector authentication options
 
-## Situations where Default Authentication does not Work
-
-Currently only one situation has been identified, where default authentication does not work inside Azure.
-
-**When a [Pod Security Policy](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) is configured in the cluster, preventing containers from reading from the host.**
-
-Two solutions exists:  
-  1. Change the Pod Security Policy to list `/etc/kubernetes/azure.json` under [AllowedHostPaths](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#volumes-and-file-systems) 
-  2. Or use custom authentication (see below). 
-
 ## AKV Authentication with the Controller
 
 The Controller will need AKV credentials to get Secrets from AKV and store them as Kubernetes Secrets or Config Maps. **If the default option (AKS credentials) works for you, use that.** If not, use custom authentication by setting `controller.keyVaultAuth` to `environment` or `environment-azidentity` and pick one of the [Authentication options](#custom-akv-authentication-options) described below.
@@ -52,39 +42,6 @@ global:
 
 When used with Azure Workload Identity, the workload identity webhook injects the environment variables and token file required by `DefaultAzureCredential`. See [Installing with Azure Workload Identity](../installation/with-azure-workload-identity) for the required labels, service account annotations, and federated credentials.
 
-### Using aad-pod-identity and MSI (System Assigned Managed Identity or User Assigned Managed Identity)
-
-If `aad-pod-identity` is installed in a cluster with MSI and akv2k8s, akv2k8s will not work out of the box, as documented by `aad-pod-identity`:
-
->The authorization request to fetch a Service Principal Token from an MSI endpoint is sent to Azure Instance Metadata Service (IMDS) endpoint (169.254.169.254), which is redirected to the NMI pod. 
-
->Identity assignment on VM takes 10-20s and 40-60s in case of VMSS.
-
-See [Add Exception for aad-pod-identity](../installation/with-aad-pod-identity) for how to add a `AzurePodIdentityException` and have akv2k8s use MSI without interference of aad-pod-identity.
-
-### Using custom authentication with AAD Pod Identity (aad-pod-identity)
-
-First follow the [authentication decision tree](#akv-authentication-with-the-env-injector) above.
-
-#### Option 1 (keyVaultAuth=environment) - pass aad-pod-identity to the env-injector
-
-When installing the env-injector using the official [`akv2k8s`](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/akv2k8s) Helm chart, set the following values:
-
-```
---set env_injector.keyVaultAuth=environment
---set env_injector.podLabels.aadpodidbinding=[your aad identity]
-```
-
-#### Option 2 (authService=false) - pass aad-pod-identity to every application pod
-
-First tell Env Injector not to use the Auth Service:
-
-```
---set env_injector.authService=false
-```
-
-Then for every Pod pass on credentials using aad-pod-identity as you would with any other Pod. 
-
 ## Custom AKV Authentication Options
 
 The following authentication options are available:
@@ -92,7 +49,6 @@ The following authentication options are available:
 | Authentication type |	Environment variable         | Description |
 | ------------------- | ---------------------------- | ------------ |
 | Azure SDK DefaultAzureCredential | `AZURE_CLIENT_ID` | Used by `environment-azidentity`, including Azure Workload Identity. Other environment variables are injected by Azure Workload Identity or configured according to Azure SDK credential support. |
-| Managed identities for Azure resources (used to be MSI) | | No credentials are needed for managed identity authentication. The Kubernetes cluster must be running in Azure and the `aad-pod-identity` controller must be installed. A `AzureIdentity` and `AzureIdentityBinding` must be defined. See https://github.com/Azure/aad-pod-identity for details. |
 | Client credentials 	| `AZURE_TENANT_ID` 	         | The ID for the Active Directory tenant that the service principal belongs to. |
 |                     |	`AZURE_CLIENT_ID` 	         | The name or ID of the service principal. |
 |                     |	`AZURE_CLIENT_SECRET`        | The secret associated with the service principal. |

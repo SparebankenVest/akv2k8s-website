@@ -45,17 +45,12 @@ For the Controller:
 
 1. Using built-in AKS cluster credentials from azure cloud config (default)
 2. Using custom credentials through environment variables
-3. Using aad-pod-identity
+3. Using Azure Workload Identity with `environment-azidentity`
 
 For the Env-Injector:
 
 Same 3 options as for the Controller, plus:
 
-1. Disable the env-injector auth service and use aad-pod-identity with your pod
-2. Disable the env-injector auth service and pass credentials directly to your pod through environment variables
+1. Disable the env-injector auth service and pass credentials directly to your pod through environment variables or Azure Workload Identity
 
 For more information, see [Authentication](security/authentication).
-
-## I use Managed Identity with aad-pod-identity and both the Controller and Env-Injector fails to start
-
-This is because aad-pod-identity intercept all authentication requests for Managed Identities. The solution is to [enable a Pod Identity exception](installation/with-aad-pod-identity).
