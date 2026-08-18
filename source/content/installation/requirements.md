@@ -3,11 +3,17 @@ title: "Requirements"
 description: "Requirements for installing akv2k8s"
 ---
 
-* Kubernetes version >= 1.19.3
+* Kubernetes version >= 1.36
 * A dedicated kubernetes namespace (e.g. akv2k8s)
 * Enabled admission controllers: MutatingAdmissionWebhook and ValidatingAdmissionWebhook
 * RBAC enabled
 * Default [authentication](../security/authentication) requires Azure AKS - use [custom authentication](../security/authentication) if running outside Azure AKS.
+
+## Supported architectures
+
+The Controller, Env Injector webhook, and `azure-keyvault-env` images are
+published for `linux/amd64` and `linux/arm64`. Kubernetes pulls the matching
+image variant for each node architecture automatically.
 
 ## Installation requirements
 The [Akv2k8s helm chart](https://github.com/SparebankenVest/public-helm-charts/tree/master/stable/akv2k8s) lets you install:
@@ -35,4 +41,3 @@ There is to ways of using multiple Akv2k8s controllers inside the same cluster:
 The difference between the two options, is that the first lets you isolate governance of the controller to the namespace that the controller is installed in, while the second option lets you specify what `AzureKeyVaultSecret` objects the controller should handle based on labels.
 
 You can also use both features at the same time.
-
