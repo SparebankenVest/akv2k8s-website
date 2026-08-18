@@ -92,6 +92,7 @@ module.exports = {
           Reference: [
             'reference/azure-key-vault-secret',
             'reference/runtime-configuration',
+            'reference/changelog',
           ],
         },
         navConfig: {},
