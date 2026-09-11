@@ -30,6 +30,8 @@ az keyvault set-policy \
   --spn <service principal id> \ 
   --subscription <azure subscription>
 ```
+  
+Alternatively, if using role-based access control (RBAC), give the K8 cluster's _agentpool_ User-assigned Managed Identity the _Key Value Secret User_ role.
 
 For more details and options, check out [authentication](security/authentication) and [authorization](security/authorization).
 
